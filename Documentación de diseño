@@ -1,4 +1,4 @@
-- Case: descripción del caso desarrollado incluyendo los diseños de base de datos y diccionario de datos
+# Case: descripción del caso desarrollado incluyendo los diseños de base de datos y diccionario de datos
 
 Diseño de Base de Datos:
 Base de datos "Record" con dos tablas principales:
@@ -19,7 +19,7 @@ dia (DATE): Fecha del evento
 Restricción UNIQUE en combinación (nombre, dia)
 
 
-- Development: descripción del desarrollo paso a paso
+#Development: descripción del desarrollo paso a paso
 DEVELOPMENT (Desarrollo):
 El desarrollo sigue estos pasos:
 Configuración inicial:
@@ -41,7 +41,7 @@ Actualizaciones y eliminaciones
 Creación de vista para consultas frecuentes
 
 
-- Script: scripts funcionales tanto de estructuras como de gestión de datos.
+#Script: scripts funcionales tanto de estructuras como de gestión de datos.
 SCRIPT:
 Los scripts están organizados en las siguientes categorías:
 a) Scripts de Estructura:
