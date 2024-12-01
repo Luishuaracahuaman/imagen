@@ -51,7 +51,7 @@ El desarrollo sigue estos pasos:
 
 Los scripts están organizados en las siguientes categorías:
 
-## a) Scripts de Estructura:
+a) Scripts de Estructura:
 
 ```sql
 -- Creación de base de datos
@@ -65,3 +65,24 @@ CREATE TABLE calendar (...)
 
 -- Creación de vista
 CREATE VIEW FrequentQueries AS ...
+
+
+
+##  b) Scripts de Gestión de Datos:
+
+
+-- Inserción de datos
+INSERT INTO Queries (name, email, cellphone, message) VALUES ...
+INSERT INTO calendar (nombre, dia) VALUES ...
+
+-- Consultas
+SELECT * FROM calendar;
+SELECT nombre, DATE_FORMAT(dia, '%d/%m/%Y') AS dia ...
+
+-- Actualizaciones
+UPDATE Queries SET email = 'nuevo_correo@ejemplo.com' ...
+UPDATE calendar SET nombre = 'Nuevo Día Internacional' ...
+
+-- Eliminaciones
+DELETE FROM Queries WHERE identifier = 4;
+DELETE FROM calendar WHERE identifier = 7;
