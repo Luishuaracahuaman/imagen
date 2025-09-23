@@ -12,13 +12,20 @@ def create_app():
 
     db.init_app(app)
     
-   # 🔥 CONFIGURACIÓN CORS PARA CODESPACES 🔥
+    # 🔥 CONFIGURACIÓN CORS PARA CODESPACES 🔥
     CORS(app, 
          origins=[
              "http://localhost:5173",
+             "http://127.0.0.1:5173", 
              "https://redesigned-acorn-*.app.github.dev",
+             "http://10.0.1.208:5001",  # ← TU IP ACTUAL DEL BACKEND
+             "http://10.0.1.208:5173",  # ← TU IP ACTUAL DEL FRONTEND
              "http://10.0.1.192:5001",
-             "http://10.0.1.192:5173"
+             "http://10.0.1.192:5173",
+             "http://10.0.1.206:5001",
+             "http://10.0.1.206:5173",
+             "http://10.0.0.171:5001",
+             "http://10.0.0.171:5173"
          ],
          supports_credentials=True,
          methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],

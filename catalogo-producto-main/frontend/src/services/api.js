@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Para GitHub Codespaces - usa tu URL específica
+// Usar URL relativa - Codespaces manejará el proxy automáticamente
 const api = axios.create({
-  baseURL: 'https://redesigned-acorn-jj4r6vgv4qjj25v97-5173.app.github.dev',
+  baseURL: '/api',  // ← URL relativa
   withCredentials: true
 });
 
