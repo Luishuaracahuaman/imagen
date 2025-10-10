@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react'
 import api from './services/api'
+import FormularioProducto from './components/FormularioProducto'
 
 function App() {
   const [productos, setProductos] = useState([])
-  const [form, setForm] = useState({ nombre: '', precio: '', descripcion: '' })
+  const [form, setForm] = useState({ 
+    nombre: '', 
+    precio: '', 
+    descripcion: '',
+    categoria: '',
+    stock: ''
+  })
   const [busqueda, setBusqueda] = useState('')
   const [editandoId, setEditandoId] = useState(null)
 
@@ -17,9 +24,9 @@ function App() {
       console.error('❌ Error cargando productos:', error)
       // Datos de prueba temporales
       setProductos([
-        {id: 1, nombre: "Producto 1", precio: 10.99, descripcion: "Descripción 1"},
-        {id: 2, nombre: "Producto 2", precio: 20.50, descripcion: "Descripción 2"},
-        {id: 3, nombre: "Producto 3", precio: 15.75, descripcion: "Descripción 3"}
+        {id: 1, nombre: "Laptop Gaming", precio: 10.99, descripcion: "Descripción 1", categoria: "electronica", stock: 5},
+        {id: 2, nombre: "Producto 2", precio: 20.50, descripcion: "Descripción 2", categoria: "ropa", stock: 15},
+        {id: 3, nombre: "Producto 3", precio: 15.75, descripcion: "Descripción 3", categoria: "hogar", stock: 8}
       ])
     }
   }
@@ -33,7 +40,7 @@ function App() {
         }
       })
       console.log('✅ Producto agregado:', response.data)
-      setForm({ nombre: '', precio: '', descripcion: '' })
+      setForm({ nombre: '', precio: '', descripcion: '', categoria: '', stock: '' })
       cargarProductos()
     } catch (error) {
       console.error('❌ Error agregando producto:', error)
@@ -67,7 +74,7 @@ function App() {
         }
       })
       console.log('✅ Producto modificado:', response.data)
-      setForm({ nombre: '', precio: '', descripcion: '' })
+      setForm({ nombre: '', precio: '', descripcion: '', categoria: '', stock: '' })
       setEditandoId(null)
       cargarProductos()
     } catch (error) {
@@ -81,14 +88,24 @@ function App() {
     setForm({
       nombre: producto.nombre,
       precio: producto.precio,
-      descripcion: producto.descripcion
+      descripcion: producto.descripcion,
+      categoria: producto.categoria,
+      stock: producto.stock
     })
     setEditandoId(producto.id)
   }
 
   const cancelarEdicion = () => {
-    setForm({ nombre: '', precio: '', descripcion: '' })
+    setForm({ nombre: '', precio: '', descripcion: '', categoria: '', stock: '' })
     setEditandoId(null)
+  }
+
+  const manejarSubmitFormulario = () => {
+    if (editandoId) {
+      modificarProducto(editandoId)
+    } else {
+      agregarProducto()
+    }
   }
 
   useEffect(() => {
@@ -96,7 +113,7 @@ function App() {
   }, [busqueda])
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">📦 Catálogo de Productos</h1>
 
       <input
@@ -107,89 +124,90 @@ function App() {
         className="mb-4 p-2 border w-full rounded"
       />
 
-      <div className="mb-6 p-4 bg-gray-50 rounded">
-        <h2 className="text-lg font-semibold mb-2">
-          {editandoId ? '✏️ Editar Producto' : '➕ Agregar Producto'}
-        </h2>
-        <input 
-          type="text" 
-          placeholder="Nombre" 
-          value={form.nombre} 
-          onChange={(e) => setForm({ ...form, nombre: e.target.value })} 
-          className="p-2 border w-full mb-2 rounded" 
-        />
-        <input 
-          type="number" 
-          placeholder="Precio" 
-          value={form.precio} 
-          onChange={(e) => setForm({ ...form, precio: e.target.value })} 
-          className="p-2 border w-full mb-2 rounded" 
-        />
-        <input 
-          type="text" 
-          placeholder="Descripción" 
-          value={form.descripcion} 
-          onChange={(e) => setForm({ ...form, descripcion: e.target.value })} 
-          className="p-2 border w-full mb-2 rounded" 
-        />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <div className="space-x-2">
-          {editandoId ? (
-            <>
-              <button 
-                onClick={() => modificarProducto(editandoId)} 
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                💾 Guardar Cambios
-              </button>
-              <button 
-                onClick={cancelarEdicion} 
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-              >
-                ❌ Cancelar
-              </button>
-            </>
-          ) : (
-            <button 
-              onClick={agregarProducto} 
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              ➕ Agregar
-            </button>
-          )}
-        </div>
-      </div>
+        {/* Columna del formulario */}
+        <div className="lg:col-span-1">
+          <div className="mb-6 p-4 bg-gray-50 rounded">
+            <h2 className="text-lg font-semibold mb-2">
+              {editandoId ? '✏️ Editar Producto' : '➕ Agregar Producto'}
+            </h2>
+            
+            <FormularioProducto 
+              onSubmit={manejarSubmitFormulario}
+              form={form}
+              setForm={setForm}
+            />
 
-      <div>
-        <h2 className="text-lg font-semibold mb-2">📋 Lista de Productos</h2>
-        <ul>
-          {productos.map(p => (
-            <li key={p.id} className="border p-4 mb-3 rounded bg-white shadow">
-              <div className="flex justify-between items-start">
-                <div className="flex-1">
-                  <h3 className="font-bold text-lg">{p.nombre}</h3>
-                  <p className="text-green-600 font-semibold">${p.precio}</p>
-                  <p className="text-sm text-gray-600 mt-1">{p.descripcion}</p>
-                  <span className="text-xs text-gray-400">ID: {p.id}</span>
-                </div>
-                <div className="space-x-2">
+            {/* Botones de acción */}
+            <div className="space-x-2 mt-4">
+              {editandoId ? (
+                <>
                   <button 
-                    onClick={() => prepararEdicion(p)} 
-                    className="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600"
+                    onClick={() => modificarProducto(editandoId)} 
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                   >
-                    ✏️ Modificar
+                    💾 Guardar Cambios
                   </button>
                   <button 
-                    onClick={() => eliminarProducto(p.id)} 
-                    className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600"
+                    onClick={cancelarEdicion} 
+                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                   >
-                    🗑️ Eliminar
+                    ❌ Cancelar
                   </button>
+                </>
+              ) : (
+                <button 
+                  onClick={agregarProducto} 
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                >
+                  ➕ Agregar
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Columna de la lista de productos */}
+        <div className="lg:col-span-2">
+          <div>
+            <h2 className="text-lg font-semibold mb-2">📋 Lista de Productos</h2>
+            <div className="space-y-3">
+              {productos.map(p => (
+                <div key={p.id} className="border p-4 rounded bg-white shadow">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg">{p.nombre}</h3>
+                      <p className="text-green-600 font-semibold">${p.precio}</p>
+                      <p className="text-sm text-gray-600 mt-1">{p.descripcion}</p>
+                      <div className="text-sm text-gray-500 mt-2">
+                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded mr-2">
+                          {p.categoria}
+                        </span>
+                        <span>Stock: {p.stock}</span>
+                        <span className="ml-4">ID: {p.id}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <button 
+                        onClick={() => prepararEdicion(p)} 
+                        className="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600 block w-full"
+                      >
+                        ✏️ Editar
+                      </button>
+                      <button 
+                        onClick={() => eliminarProducto(p.id)} 
+                        className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 block w-full"
+                      >
+                        🗑️ Eliminar
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-// Usar URL relativa - Codespaces manejará el proxy automáticamente
+// Para Codespaces - URL relativa
 const api = axios.create({
-  baseURL: '/api',  // ← URL relativa
-  withCredentials: true
+  baseURL: '/api',
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
 export default api;
