@@ -1,25 +1,31 @@
-# Backend "Karina's Style": Guía de Comandos
+# 🐳 Backend "Karina's Style": Guía de Comandos Docker
 
-**Importante:** La carpeta `Wallet_KarinasStyles/` debe estar en este directorio.
+Esta guía explica cómo ejecutar y probar el backend de Docker Compose.
+
+**Importante:** Asegúrate de que la carpeta `Wallet_KarinasStyles/` esté en este mismo directorio antes de empezar, de lo contrario el contenedor fallará.
 
 ---
 
-### 1. Descargar la Imagen
+### 1. Descargar la Imagen más Reciente
+
+Descarga la imagen `:develop` (la cual tiene los últimos arreglos de seguridad) desde Docker Hub.
+
 ```bash
 docker-compose pull
 
-
-
+# Inicia el contenedor
 docker-compose up -d
-# Espera 20 segundos
+
+# Verifica que está corriendo (busca el puerto 8085)
 docker ps
 
-
+# Detén la Prueba 1
 docker-compose down
+
+# Inicia la Prueba 2
 docker-compose up -d
-# Espera 20 segundos
+
+# Verifica que está corriendo (busca el puerto 9090)
 docker ps
-
-
 
 docker-compose down
