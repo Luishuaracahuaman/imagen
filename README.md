@@ -39,4 +39,6 @@ docker-compose up -d
 docker ps
 ```
 
+```bash
 docker-compose down
+```
