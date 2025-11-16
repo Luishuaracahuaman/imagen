@@ -12,20 +12,31 @@ Descarga la imagen `:develop` (la cual tiene los últimos arreglos de seguridad)
 
 ```bash
 docker-compose pull
+```
 
 # Inicia el contenedor
+```bash
 docker-compose up -d
+```
 
 # Verifica que está corriendo (busca el puerto 8085)
+```bash
 docker ps
+```
 
 # Detén la Prueba 1
+```bash
 docker-compose down
+```
 
 # Inicia la Prueba 2
+```bash
 docker-compose up -d
+```
 
 # Verifica que está corriendo (busca el puerto 9090)
+```bash
 docker ps
+```
 
 docker-compose down
