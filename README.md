@@ -2,8 +2,6 @@
 
 Esta guía explica cómo ejecutar y probar el backend de Docker Compose.
 
-**Importante:** Asegúrate de que la carpeta `Wallet_KarinasStyles/` esté en este mismo directorio antes de empezar, de lo contrario el contenedor fallará.
-
 ---
 
 ### 1. Descargar la Imagen más Reciente
