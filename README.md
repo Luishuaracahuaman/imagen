@@ -1,26 +1,4 @@
-Markdown
-# 🎓 Proyecto Integrador - Microservicio Student API
 
-**Autor:** Luis Enrique Huaraca Huaman
-**Promoción:** 232
-
-Este repositorio contiene la implementación completa de una arquitectura basada en microservicios, cumpliendo con los estándares de evaluación de los Tracks FRI, AEJ, AD2, APS e INN.
-
----
-
-## 🚀 1. Tecnologías Utilizadas
-* **Java 17 & Spring Boot** (API RESTful)
-* **H2 Database & MySQL 8.0** (Persistencia)
-* **Docker & GraalVM** (Contenedorización Native Image < 60MB)
-* **Kubernetes** (Orquestación, Réplicas y Secrets)
-* **Nginx** (Proxy)
-
----
-
-## 💻 2. Código Fuente (Spring Boot)
-
-### `StudentController.java`
-Controlador principal con los métodos GET, POST, PUT y DELETE. El puerto es inyectado dinámicamente.
 
 ```java
 package com.vallegrande.student.controller;
