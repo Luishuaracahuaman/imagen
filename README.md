@@ -1,7 +1,3 @@
-Aquí tienes la guía definitiva estructurada en bloques de código listos para copiar y pegar.
-
-Crea los archivos con los nombres indicados y pega el contenido correspondiente en cada uno. Al final, tienes la lista de comandos exacta para ejecutar todo.
-
 1. Archivos de Spring Boot
 Crea este archivo en la ruta: src/main/java/com/vallegrande/student/controller/StudentController.java
 
@@ -218,3 +214,4 @@ kubectl apply -f luis-01-service.yml
 Bash
 kubectl get pods -n luis-namespace
 kubectl port-forward service/luis-service 9094:80 -n luis-namespace
+(Prueba en navegador: http://localhost:9094/v1/api/student)
