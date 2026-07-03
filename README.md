@@ -197,3 +197,15 @@ kubectl apply -f luis-01-deployment.yml
 kubectl apply -f luis-01-service.yml
 
 kubectl port-forward service/luis-service 9094:80 -n luis-namespace
+
+
+
+
+node -v
+npm -v
+npm install -g @angular/cli
+ng version
+ng new nombre-de-tu-proyecto
+cd nombre-de-tu-proyecto
+ng serve
+
